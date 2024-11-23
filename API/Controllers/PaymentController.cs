@@ -1,0 +1,47 @@
+﻿using API.Dtos;
+using AutoMapper;
+using Core.Entities;
+using Core.Interfaces.Repositories;
+using Infrastructure.Helpers;
+
+namespace API.Controllers;
+
+public class PaymentController(IPaymentRepository paymentRepository, IMapper mapper) : BaseApiController {
+  [HttpGet]
+  public async Task<IActionResult> GetPayments() {
+    var payments = await paymentRepository.GetAllAsync(x => true);
+    var response = new BaseResponse(200, "Success", mapper.Map<List<PaymentGetDto>>(payments), []);
+    return Ok(response);
+  }
+
+  [HttpGet("{id:int}")]
+  public async Task<IActionResult> GetPayment(int id) {
+    var payment = await paymentRepository.GetAsync(x => x.Id == id);
+    var response = new BaseResponse(200, "Success", mapper.Map<PaymentGetDto>(payment), []);
+    return Ok(response);
+  }
+
+  [HttpPost]
+  public async Task<IActionResult> CreatePayment(PaymentPostDto payment) {
+    if (!ModelState.IsValid) {
+      return BadRequest(ModelState);
+    }
+
+    var newPayment = mapper.Map<Payment>(payment);
+    await paymentRepository.AddAsync(newPayment);
+    var response = new BaseResponse(201, "Created", mapper.Map<PaymentGetDto>(newPayment), []);
+    return Ok(response);
+  }
+
+  [HttpDelete("{id:int}")]
+  public async Task<IActionResult> DeletePayment(int id) {
+    var payment = await paymentRepository.GetAsync(x => x.Id == id);
+    if (payment == null) {
+      return NotFound();
+    }
+
+    await paymentRepository.DeleteAsync(payment);
+    var response = new BaseResponse(204, "Deleted", null, []);
+    return Ok(response);
+  }
+}
