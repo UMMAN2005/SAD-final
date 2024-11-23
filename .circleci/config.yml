@@ -46,7 +46,7 @@ jobs:
       - run:
           name: Push Image to Harbor
           command: |
-            echo $HARBOR_PASSWORD | docker login -u $HARBOR_USERNAME --password-stdin
+            echo $HARBOR_PASSWORD | docker login ayazumman.xyz -u $HARBOR_USERNAME --password-stdin
             docker tag sad-final $IMAGE_NAME:$CIRCLE_SHA1
             docker push $IMAGE_NAME:$CIRCLE_SHA1
 
