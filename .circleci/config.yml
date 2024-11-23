@@ -41,7 +41,7 @@ jobs:
             sudo mv pack /usr/local/bin/pack
             pwd
             ls -ltr
-            pack build sad-final --path . --builder gcr.io/buildpacks/builder:google-22
+            pack build sad-final --path . --builder gcr.io/buildpacks/builder:google-22 --env "GOOGLE_BUILDABLE=API"
 
       - run:
           name: Push Image to Harbor
