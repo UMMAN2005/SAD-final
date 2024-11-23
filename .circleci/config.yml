@@ -39,7 +39,9 @@ jobs:
           command: |
             curl -sSL https://github.com/buildpacks/pack/releases/download/v0.35.1/pack-v0.35.1-linux.tgz | tar xz
             sudo mv pack /usr/local/bin/pack
-            pack build sad-final --path ./API --builder gcr.io/buildpacks/builder:google-22
+            pwd
+            ls -ltr
+            pack build sad-final --path . --builder gcr.io/buildpacks/builder:google-22
 
       - run:
           name: Push Image to Harbor
