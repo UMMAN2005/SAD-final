@@ -14,24 +14,23 @@ jobs:
     steps:
       - checkout
 
-      # Install .NET SDK (Specify your version)
       - run:
           name: Install .NET SDK
           command: |
-            curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel STS
-            export PATH=$PATH:$HOME/.dotnet
+            curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel LTS
+            echo 'export PATH=$PATH:/home/circleci/.dotnet' >> $BASH_ENV
 
-      # Build the application
       - run:
-          name: Build Project
-          command: dotnet build
+          name: Restore and Build
+          command: |
+            source $BASH_ENV
+            dotnet restore
+            dotnet build
 
-      # Run tests (optional)
       - run:
           name: Run Tests
           command: dotnet test
 
-      # Use Cloud Native Buildpacks with Google builder
       - run:
           name: Build Image with Buildpacks
           command: |
@@ -39,7 +38,6 @@ jobs:
             sudo mv pack /usr/local/bin/pack
             pack build sad-final --builder gcr.io/buildpacks/builder:google-22
 
-      # Save the built image to the Google Container Registry (GCR) or DockerHub
       - run:
           name: Push Image to Harbor
           command: |
