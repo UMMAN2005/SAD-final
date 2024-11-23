@@ -1,0 +1,53 @@
+version: 2.1
+
+executors:
+  dotnet-executor:
+    docker:
+      - image: cimg/base:2023.10
+    resource_class: medium
+
+jobs:
+  build:
+    executor: dotnet-executor
+    environment:
+      IMAGE_NAME: ayazumman.xyz/circleci/sad-final
+    steps:
+      - checkout
+
+      # Install .NET SDK (Specify your version)
+      - run:
+          name: Install .NET SDK
+          command: |
+            curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel STS
+            export PATH=$PATH:$HOME/.dotnet
+
+      # Build the application
+      - run:
+          name: Build Project
+          command: dotnet build
+
+      # Run tests (optional)
+      - run:
+          name: Run Tests
+          command: dotnet test
+
+      # Use Cloud Native Buildpacks with Google builder
+      - run:
+          name: Build Image with Buildpacks
+          command: |
+            curl -sSL https://github.com/buildpacks/pack/releases/download/v0.35.1/pack-v0.35.1-linux.tgz | tar xz
+            sudo mv pack /usr/local/bin/pack
+            pack build sad-final --builder gcr.io/buildpacks/builder:google-22
+
+      # Save the built image to the Google Container Registry (GCR) or DockerHub
+      - run:
+          name: Push Image to Harbor
+          command: |
+            echo $HARBOR_PASSWORD | docker login -u $HARBOR_USERNAME --password-stdin
+            docker tag sad-final $IMAGE_NAME:$CIRCLE_SHA1
+            docker push $IMAGE_NAME:$CIRCLE_SHA1
+
+workflows:
+  build-and-push:
+    jobs:
+      - build

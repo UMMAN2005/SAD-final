@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers().AddJsonOptions(options => {
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
   options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
 });
 
@@ -15,13 +16,16 @@ builder.Services.AddApplicationServices(builder.Configuration);
 
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerGen(c => {
-  c.SwaggerDoc("ecommerce", new OpenApiInfo {
+builder.Services.AddSwaggerGen(c =>
+{
+  c.SwaggerDoc("ecommerce", new OpenApiInfo
+  {
     Title = "E-Commerce API",
     Version = "v1"
   });
 
-  c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
+  c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+  {
     In = ParameterLocation.Header,
     Description = "Please insert JWT without Bearer into field",
     Name = "Authorization",
@@ -47,9 +51,11 @@ builder.Services.AddSwaggerGen(c => {
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment()) {
+if (app.Environment.IsDevelopment())
+{
   app.UseSwagger();
-  app.UseSwaggerUI(c => {
+  app.UseSwaggerUI(c =>
+  {
     c.SwaggerEndpoint("/swagger/ecommerce/swagger.json", "E-Commerce API v1");
 
     // Customize the Swagger UI
@@ -73,15 +79,17 @@ app.MapControllers();
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
-var context = services.GetRequiredService<AppDbContext>(); 
+var context = services.GetRequiredService<AppDbContext>();
 var userManager = services.GetRequiredService<ILogger<Program>>();
-try {
+try
+{
   await context.Database.MigrateAsync();
   // await identityContext.Database.MigrateAsync();
   //  await StoreContextSeed.SeedAsync(context);
   //await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
 }
-catch (Exception ex) {
+catch (Exception ex)
+{
   Console.WriteLine("An error occured during migration");
   Console.WriteLine(ex.Message);
 }
