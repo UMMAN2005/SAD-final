@@ -1,8 +1,16 @@
 using API.Helpers.Extensions;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.WebHost.ConfigureKestrel(serverOptions => {
+  serverOptions.Listen(IPAddress.Any, 5000);
+  serverOptions.Listen(IPAddress.Any, 5001, listenOptions => {
+    listenOptions.UseHttps();
+  });
+});
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
