@@ -66,7 +66,7 @@ jobs:
       - run:
           name: Deploy Docker Container to GCE Instance
           command: |
-            gcloud compute ssh $GCE_INSTANCE_NAME --zone=$GCE_ZONE --command "
+            gcloud compute ssh $GCE_INSTANCE_NAME --quiet --zone=$GCE_ZONE --command "
             echo $HARBOR_PASSWORD | docker login ayazumman.xyz -u $HARBOR_USERNAME --password-stdin &&
             docker pull $IMAGE_NAME:$CIRCLE_SHA1 &&
             docker stop sad-final || true &&
