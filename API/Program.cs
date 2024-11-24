@@ -2,6 +2,10 @@ using API.Helpers.Extensions;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
+using API.Helpers.Middleware;
+using Core.Entities;
+using Infrastructure.Helpers;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +18,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddApplicationServices(builder.Configuration);
 
-builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddEndpointsApiExplorer(); 
 
 builder.Services.AddSwaggerGen(c => {
   c.SwaggerDoc("ecommerce", new OpenApiInfo {
@@ -47,6 +51,8 @@ builder.Services.AddSwaggerGen(c => {
 
 var app = builder.Build();
 
+await ApplyMigrationsAndSeedData(app.Services);
+
 // Configure the HTTP request pipeline.
 app.UseSwagger();
 app.UseSwaggerUI(c => {
@@ -70,20 +76,21 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-using var scope = app.Services.CreateScope();
-var services = scope.ServiceProvider;
-var context = services.GetRequiredService<AppDbContext>();
-var userManager = services.GetRequiredService<ILogger<Program>>();
-try {
-  await context.Database.MigrateAsync();
-  // await identityContext.Database.MigrateAsync();
-  //  await StoreContextSeed.SeedAsync(context);
-  //await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
-}
-catch (Exception ex) {
-  Console.WriteLine("An error occured during migration");
-  Console.WriteLine(ex.Message);
-}
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.Run();
+return;
 
+static async Task ApplyMigrationsAndSeedData(IServiceProvider serviceProvider) {
+  // Create a scope to resolve scoped services
+  using var scope = serviceProvider.CreateScope();
+  var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+  var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+  var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+  // Apply migrations
+  await dbContext.Database.MigrateAsync();
+
+  // Seed data
+  DbInitializer.SeedData(scope.ServiceProvider);
+}
