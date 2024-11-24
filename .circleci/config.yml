@@ -69,10 +69,10 @@ jobs:
             gcloud compute ssh $GCE_INSTANCE_NAME --quiet --zone=$GCE_ZONE --command "
             echo $HARBOR_PASSWORD | docker login ayazumman.xyz -u $HARBOR_USERNAME --password-stdin &&
             docker pull $IMAGE_NAME:$CIRCLE_SHA1 &&
-            docker stop sad-final || true &&
-            docker rm sad-final || true &&
-            docker run -d --rm -p 80:6200 -e ASPNETCORE_URLS="http://*:6200" -e ConnectionStrings__DefaultConnection="$ConnectionStrings__DefaultConnection" -e JwtSettings__SecretKey="$JwtSettings__SecretKey" --name sad-final $IMAGE_NAME:$CIRCLE_SHA1
-            docker exec -it sad-final printenv
+            # docker stop sad-final || true &&
+            # docker rm sad-final || true &&
+            docker run -d --rm -p 80:6200 -e ASPNETCORE_URLS="http://*:6200" -e ConnectionStrings__DefaultConnection="${ConnectionStrings__DefaultConnection}" -e JwtSettings__SecretKey="${JwtSettings__SecretKey}" --name sad-final $IMAGE_NAME:$CIRCLE_SHA1
+            # docker exec -it sad-final printenv
             "
 
 workflows:
