@@ -19,7 +19,7 @@ public partial class AuthController(
   : BaseApiController {
 
   [HttpPost("login")]
-  public async Task<IActionResult> Login(LoginDto loginDto) {
+  public async Task<IActionResult> Login([FromForm] LoginDto loginDto) {
     var user = await userManager.FindByEmailAsync(loginDto.Email);
 
     if (user == null || !await userManager.CheckPasswordAsync(user, loginDto.Password!))
@@ -52,7 +52,7 @@ public partial class AuthController(
   }
 
   [HttpPost("register")]
-  public async Task<IActionResult> Register(RegisterDto registerDto) {
+  public async Task<IActionResult> Register([FromForm] RegisterDto registerDto) {
     string? uploadedFilePath = null;
     using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
     try {

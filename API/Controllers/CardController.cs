@@ -1,12 +1,14 @@
-﻿using API.Dtos;
+﻿using System.Security.Claims;
+using API.Dtos;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces.Repositories;
 using Infrastructure.Helpers;
+using Microsoft.AspNetCore.Identity;
 
 namespace API.Controllers;
 
-public class CardController(ICardRepository cardRepository, IMapper mapper) : BaseApiController {
+public class CardController(ICardRepository cardRepository, IMapper mapper, UserManager<AppUser> userManager, IHttpContextAccessor accessor) : BaseApiController {
   [HttpGet]
   public async Task<IActionResult> GetCards() {
     var cards = await cardRepository.GetAllAsync(x => true);
@@ -28,6 +30,15 @@ public class CardController(ICardRepository cardRepository, IMapper mapper) : Ba
     }
 
     var newCard = mapper.Map<Card>(card);
+
+    var token = accessor.HttpContext!.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+    if (token == null) return Unauthorized(new BaseResponse(401, "Unauthorized", null, []));
+
+    newCard.AppUserId = JwtHelper.GetClaimFromJwt(token, ClaimTypes.NameIdentifier)!;
+
+    var user = await userManager.FindByIdAsync(newCard.AppUserId);
+    if (user == null) return BadRequest(new BaseResponse(400, "Bad request", null, []));
+
     await cardRepository.AddAsync(newCard);
     var response = new BaseResponse(201, "Created", mapper.Map<CardGetDto>(newCard), []);
     return Ok(response);

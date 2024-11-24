@@ -5,4 +5,10 @@ public record OrderItemGetDto(
   int Quantity,
   int ProductId,
   decimal TotalPrice
-  );
+);
+
+public record OrderItemPostDto(
+   int Quantity,
+    int ProductId,
+    decimal TotalPrice
+   );

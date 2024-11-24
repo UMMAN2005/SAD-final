@@ -8,6 +8,7 @@ public class Repository<T>(AppDbContext context) : IRepository<T>
   where T : class, new() {
   public async Task AddAsync(T entity) {
     await context.Set<T>().AddAsync(entity);
+    await context.SaveChangesAsync();
   }
 
   public async Task DeleteAsync(T entity) {

@@ -1,4 +1,5 @@
 using API.Dtos;
+using API.Helpers.Filters;
 using API.Helpers.Profiles;
 using AutoMapper;
 using Core.Entities;
@@ -47,12 +48,13 @@ public static class ApplicationServicesExtensions {
     services.AddScoped<ICategoryRepository, CategoryRepository>();
     services.AddScoped<IProductRepository, ProductRepository>();
     services.AddScoped<IReviewRepository, ReviewRepository>();
-    services.AddScoped<IOrderItemRepository, OrderItemRepository>();
     services.AddScoped<IOrderRepository, OrderRepository>();
     services.AddScoped<ICardRepository, CardRepository>();
     services.AddScoped<IPaymentRepository, PaymentRepository>();
 
     services.AddScoped<IEmailSenderService, EmailSenderService>();
+
+    services.AddScoped<TokenValidationFilter>();
 
     services.AddLogging();
 

@@ -6,7 +6,7 @@ using Infrastructure.Helpers;
 
 namespace API.Controllers;
 
-public class ProductController(IProductRepository productRepository, IMapper mapper) : BaseApiController {
+public class ProductController(IProductRepository productRepository, IMapper mapper, ICategoryRepository categoryRepository) : BaseApiController {
   [HttpGet]
   public async Task<IActionResult> GetProducts() {
     var products = await productRepository.GetAllAsync(x => true);
@@ -28,6 +28,10 @@ public class ProductController(IProductRepository productRepository, IMapper map
     }
 
     var newProduct = mapper.Map<Product>(product);
+
+    var category = await categoryRepository.GetAsync(x => x.Id == product.CategoryId);
+    if (category == null) return BadRequest(new BaseResponse(400, "Bad request", null, []));
+
     await productRepository.AddAsync(newProduct);
     var response = new BaseResponse(201, "Created", mapper.Map<ProductGetDto>(newProduct), []);
     return Ok(response);

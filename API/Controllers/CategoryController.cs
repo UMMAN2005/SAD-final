@@ -1,4 +1,5 @@
 using API.Dtos;
+using API.Helpers.Filters;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces.Repositories;
@@ -6,6 +7,7 @@ using Infrastructure.Helpers;
 
 namespace API.Controllers;
 
+[ServiceFilter(typeof(TokenValidationFilter))]
 public class CategoryController(ICategoryRepository categoryRepository, IMapper mapper) : BaseApiController {
   [HttpGet]
   public async Task<IActionResult> GetCategories() {

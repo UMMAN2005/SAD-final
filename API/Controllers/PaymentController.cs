@@ -3,10 +3,12 @@ using AutoMapper;
 using Core.Entities;
 using Core.Interfaces.Repositories;
 using Infrastructure.Helpers;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace API.Controllers;
 
-public class PaymentController(IPaymentRepository paymentRepository, IMapper mapper) : BaseApiController {
+public class PaymentController(IPaymentRepository paymentRepository, IMapper mapper, IOrderRepository orderRepository) : BaseApiController {
   [HttpGet]
   public async Task<IActionResult> GetPayments() {
     var payments = await paymentRepository.GetAllAsync(x => true);
@@ -28,6 +30,10 @@ public class PaymentController(IPaymentRepository paymentRepository, IMapper map
     }
 
     var newPayment = mapper.Map<Payment>(payment);
+
+    var order = await orderRepository.GetAsync(x => x.Id == payment.OrderId);
+    if (order == null) return BadRequest(new BaseResponse(400, "Bad request", null, []));
+
     await paymentRepository.AddAsync(newPayment);
     var response = new BaseResponse(201, "Created", mapper.Map<PaymentGetDto>(newPayment), []);
     return Ok(response);

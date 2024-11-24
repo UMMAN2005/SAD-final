@@ -6,6 +6,7 @@ using API.Helpers.Middleware;
 using Core.Entities;
 using Infrastructure.Helpers;
 using Microsoft.AspNetCore.Identity;
+using API.Helpers.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 

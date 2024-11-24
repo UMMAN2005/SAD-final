@@ -11,4 +11,6 @@ public class Order : BaseEntity {
   public decimal SubtotalPrice { get; set; }
   public Address ShippingAddress { get; set; } = default!;
   public ICollection<Payment> Payments { get; set; } = [];
+  public string AppUserId { get; set; } = default!;
+  public AppUser AppUser { get; set; } = default!;
 }
