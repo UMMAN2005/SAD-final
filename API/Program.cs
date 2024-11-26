@@ -10,7 +10,8 @@ using API.Helpers.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers().AddJsonOptions(options => {
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
   options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
 });
 
@@ -21,13 +22,16 @@ builder.Services.AddApplicationServices(builder.Configuration);
 
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerGen(c => {
-  c.SwaggerDoc("ecommerce", new OpenApiInfo {
+builder.Services.AddSwaggerGen(c =>
+{
+  c.SwaggerDoc("ecommerce", new OpenApiInfo
+  {
     Title = "E-Commerce API",
     Version = "v1"
   });
 
-  c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
+  c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+  {
     In = ParameterLocation.Header,
     Description = "Please insert JWT without Bearer into field",
     Name = "Authorization",
@@ -56,7 +60,8 @@ await ApplyMigrationsAndSeedData(app.Services);
 
 // Configure the HTTP request pipeline.
 app.UseSwagger();
-app.UseSwaggerUI(c => {
+app.UseSwaggerUI(c =>
+{
   c.SwaggerEndpoint("/swagger/ecommerce/swagger.json", "E-Commerce API v1");
 
   // Customize the Swagger UI
@@ -79,15 +84,14 @@ app.MapControllers();
 
 app.UseMiddleware<ExceptionHandlerMiddleware>();
 
-app.Run();
+await app.RunAsync();
 return;
 
-static async Task ApplyMigrationsAndSeedData(IServiceProvider serviceProvider) {
+static async Task ApplyMigrationsAndSeedData(IServiceProvider serviceProvider)
+{
   // Create a scope to resolve scoped services
   using var scope = serviceProvider.CreateScope();
   var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-  var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
-  var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
   // Apply migrations
   await dbContext.Database.MigrateAsync();

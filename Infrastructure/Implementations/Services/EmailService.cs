@@ -23,7 +23,7 @@ public class EmailService(IConfiguration configuration)
     email.Body = new TextPart(TextFormat.Html) { Text = body };
 
     using var smtp = new SmtpClient();
-    await smtp.ConnectAsync(emailSettings["Provider"], Convert.ToInt32(emailSettings["Port"]), SecureSocketOptions.StartTls);
+    await smtp.ConnectAsync(emailSettings["Provider"], Convert.ToInt32(emailSettings["Port"]), SecureSocketOptions.SslOnConnect);
     await smtp.AuthenticateAsync(emailSettings["UserName"], emailSettings["Password"]);
     await smtp.SendAsync(email);
     await smtp.DisconnectAsync(true);
