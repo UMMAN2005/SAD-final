@@ -1,9 +1,11 @@
 ﻿// ReSharper disable StringLiteralTypo
 namespace Infrastructure.Helpers;
 
-public static class EmailTemplates {
-  private static string GetBaseTemplate(string content) {
-    var htmlContent = $@"
+public static class EmailTemplates
+{
+  private static string GetBaseTemplate(string content)
+  {
+    return $@"
 <!doctype html>
 <html>
   <head>
@@ -113,35 +115,26 @@ public static class EmailTemplates {
   </body>
 </html>
 ";
-    return htmlContent;
   }
 
-  public static string GetForgetPasswordTemplate(string url) {
+  public static string GetVerifyEmailTemplate(string code)
+  {
     var content = $@"
-<td class='content-block'>
-  <h2>Reset Password</h2>
-</td>
-<td class='content-block'>
-  <p>Click the button below to reset your password.</p>
-</td>
-<td class='content-block'>
-  <a href='{url}' class='btn btn-primary'>Reset Password</a>
-</td>
-";
-    return GetBaseTemplate(content);
-  }
-
-  public static string GetVerifyEmailTemplate(string url) {
-    var content = $@"
-<td class='content-block'>
-<span class='apple-link'>Email Verification</span>
-</td>
-<td class='content-block'>
-<p>Click the button below to verify your email.</p>
-</td>
-<td class='content-block'>
-<a href='{url}' class='btn btn-primary'>Verify Email</a>
-</td>
+<tr class='content-block' style='text-align: center; padding: 20px;'>
+  <td>
+    <span class='apple-link' style='font-size: 24px; font-weight: bold; color: #333; letter-spacing: 1px;'>Email Verification</span>
+  </td>
+</tr>
+<tr class='content-block' style='text-align: center; padding: 10px 0;'>
+  <td>
+    <p style='font-size: 18px; color: #555; margin: 0;'>Enter the code below to verify your email:</p>
+  </td>
+</tr>
+<tr class='content-block' style='text-align: center; padding: 20px 0;'>
+  <td>
+    <h1 class='text-primary' style='font-size: 36px; font-weight: bold; color: #1a73e8; margin: 0;'>{code}</h1>
+  </td>
+</tr>
 ";
     return GetBaseTemplate(content);
   }
