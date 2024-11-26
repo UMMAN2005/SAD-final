@@ -27,7 +27,7 @@ jobs:
             sed -i '/var app = builder.Build();/i \
             builder.WebHost.ConfigureKestrel(options => { \
                 options.ListenAnyIP(443, listenOptions => { \
-                    listenOptions.UseHttps("/etc/ssl/certs/certificate.pfx", "${CERT_PASSWORD}"); \
+                    listenOptions.UseHttps("/etc/ssl/certs/certificate.pfx", "YourSecurePassword"); \
                 }); \
             });' API/Program.cs
 
