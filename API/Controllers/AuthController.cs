@@ -26,8 +26,19 @@ public class AuthController(AppUserManager userManager, IConfiguration config, I
       if (!await userManager.CheckPasswordAsync(user, loginDto.Password!))
         return StatusCode(response.StatusCode, response);
 
-      if (!await userManager.IsEmailConfirmedAsync(user))
-        return StatusCode(403, new BaseResponse(403, "Email is not confirmed", null, []));
+      if (!await userManager.IsEmailConfirmedAsync(user)) {
+        if (loginDto.Otp == null) {
+          return StatusCode(401,
+            new BaseResponse(401, $"Email not verified! {user.Email}. Please provide the OTP sent to your email.", null,
+              []));
+        }
+
+        if (!await userManager.ValidateOtpAsync(user, loginDto.Otp))
+          return StatusCode(401, new BaseResponse(401, "Invalid or expired OTP!", null, []));
+
+        user.EmailConfirmed = true;
+        await userManager.UpdateAsync(user);
+      }
     }
     else {
       user.EmailConfirmed = true;

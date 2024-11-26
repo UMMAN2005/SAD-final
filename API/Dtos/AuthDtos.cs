@@ -4,7 +4,7 @@ using FluentValidation;
 namespace API.Dtos;
 
 public record LoginDto(
-  string Email, string? Password, bool RememberMe
+  string Email, string? Password, bool RememberMe, string? Otp
 );
 
 public record RegisterDto(
@@ -20,6 +20,7 @@ public class LoginDtoValid : AbstractValidator<LoginDto> {
   public LoginDtoValid() {
     RuleFor(x => x.Email).NotEmpty().EmailAddress().MaximumLength(50);
     RuleFor(x => x.Password).NotEmpty();
+    RuleFor(x => x.Otp).MaximumLength(6);
   }
 }
 
