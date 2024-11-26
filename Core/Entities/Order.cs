@@ -5,7 +5,7 @@ public record Address(
 );
 
 public class Order : BaseEntity {
-  public ICollection<OrderItem> Items { get; set; } = [];
+  public ICollection<OrderItem> OrderItems { get; set; } = [];
   public decimal ShippingPrice { get; set; }
   public decimal TotalPrice { get; set; }
   public decimal SubtotalPrice { get; set; }

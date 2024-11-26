@@ -45,6 +45,8 @@ public static class ApplicationServicesExtensions {
     services.AddValidatorsFromAssemblyContaining<CategoryPostDtoValid>();
 
     //Custom Services
+    services.AddScoped<AppUserManager>();
+
     services.AddScoped<ICategoryRepository, CategoryRepository>();
     services.AddScoped<IProductRepository, ProductRepository>();
     services.AddScoped<IReviewRepository, ReviewRepository>();
@@ -52,7 +54,7 @@ public static class ApplicationServicesExtensions {
     services.AddScoped<ICardRepository, CardRepository>();
     services.AddScoped<IPaymentRepository, PaymentRepository>();
 
-    services.AddScoped<IEmailSenderService, EmailSenderService>();
+    services.AddScoped<IEmailService, EmailService>();
 
     services.AddScoped<TokenValidationFilter>();
 

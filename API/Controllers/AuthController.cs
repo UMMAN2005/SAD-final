@@ -8,22 +8,31 @@ using Infrastructure.Helpers;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Transactions;
+using Infrastructure.Implementations.Services;
 
 namespace API.Controllers;
 
-public partial class AuthController(
-  UserManager<AppUser> userManager,
-  IConfiguration config,
-  IWebHostEnvironment env
-  )
-  : BaseApiController {
-
+public class AuthController(AppUserManager userManager, IConfiguration config, IEmailService emailService, IWebHostEnvironment env) : BaseApiController {
   [HttpPost("login")]
   public async Task<IActionResult> Login([FromForm] LoginDto loginDto) {
     var user = await userManager.FindByEmailAsync(loginDto.Email);
 
+    var response = new BaseResponse(401, "Invalid email or password", null, []);
+
     if (user == null || !await userManager.CheckPasswordAsync(user, loginDto.Password!))
-      return Unauthorized(new BaseResponse(401, "Invalid email or password", null, []));
+      return StatusCode(response.StatusCode, response);
+
+    if (user.Provider is AuthProvider.Local) {
+      if (!await userManager.CheckPasswordAsync(user, loginDto.Password!))
+        return StatusCode(response.StatusCode, response);
+
+      if (!await userManager.IsEmailConfirmedAsync(user))
+        return StatusCode(403, new BaseResponse(403, "Email is not confirmed", null, []));
+    }
+    else {
+      user.EmailConfirmed = true;
+      await userManager.UpdateAsync(user);
+    }
 
     List<Claim> claims = [
       new Claim(ClaimTypes.NameIdentifier, user!.Id),
@@ -51,6 +60,30 @@ public partial class AuthController(
     return Ok(new BaseResponse(200, "Logged in successfully", token, []));
   }
 
+  [HttpPost("resend-otp")]
+  public async Task<IActionResult> ResendOtp([FromForm] ResendOtpDto resendOtpDto) {
+    var user = await userManager.FindByEmailAsync(resendOtpDto.Email);
+
+    if (user == null)
+      return StatusCode(404, new BaseResponse(404, "User not found", null, []));
+
+    if (user.Provider is not AuthProvider.Local)
+      return StatusCode(400, new BaseResponse(400, "User is not registered with email", null, []));
+
+    if (user.LastOtpRequestTime.HasValue && user.LastOtpRequestTime.Value.AddMinutes(2) > DateTime.UtcNow) {
+      var nextRequestTime = user.LastOtpRequestTime.Value.AddMinutes(2);
+      var remainingTime = nextRequestTime.Subtract(DateTime.UtcNow).TotalSeconds;
+      return StatusCode(420, new BaseResponse(429, $"You must wait {remainingTime:F1} seconds before requesting a new OTP.", null, []));
+    }
+
+    var otp = await userManager.GenerateOtpAsync(user);
+    user.LastOtpRequestTime = DateTime.UtcNow;
+    await userManager.UpdateAsync(user);
+    await emailService.SendAsync(user.Email!, "Email Verification", EmailTemplates.GetVerifyEmailTemplate(otp));
+
+    return Ok(new BaseResponse(200, "OTP has been resent to your email.", null, []));
+  }
+
   [HttpPost("register")]
   public async Task<IActionResult> Register([FromForm] RegisterDto registerDto) {
     string? uploadedFilePath = null;
@@ -58,7 +91,10 @@ public partial class AuthController(
     try {
       var user = new AppUser {
         Email = registerDto.Email,
-        UserName = registerDto.UserName
+        UserName = registerDto.UserName,
+        Birthday = DateTime.SpecifyKind(registerDto.Birthday, DateTimeKind.Utc),
+        Gender = registerDto.Gender,
+        Provider = AuthProvider.Local
       };
 
       if (registerDto.Avatar != null)
@@ -70,12 +106,17 @@ public partial class AuthController(
 
       if (!result.Succeeded) {
         var errors = string.Join(", ", result.Errors.Select(x => x.Description));
-        return BadRequest(new BaseResponse(400, errors, null, []));
+        return StatusCode(400, new BaseResponse(400, errors, null, []));
       }
+
+      var otp = await userManager.GenerateOtpAsync(user);
+      user.LastOtpRequestTime = DateTime.UtcNow;
+      await userManager.UpdateAsync(user);
+      await emailService.SendAsync(user.Email!, "Email Verification", EmailTemplates.GetVerifyEmailTemplate(otp));
 
       scope.Complete();
 
-      return Ok(new BaseResponse(200, "Registered successfully!", new { user.Id }, []));
+      return Ok(new BaseResponse(200, "Registered successfully. Please verify your email now.", new { user.Id }, []));
     }
     catch {
 

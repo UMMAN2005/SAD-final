@@ -17,10 +17,20 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbCo
   public DbSet<Payment> Payments { get; set; }
 
   protected override void OnModelCreating(ModelBuilder modelBuilder) {
-    base.OnModelCreating(modelBuilder);
 
-    var dateTimeConverter = new ValueConverter<DateTime, DateTime>(
-      v => v.ToUniversalTime(), v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
+    var dateTimeProperties = modelBuilder.Model
+      .GetEntityTypes()
+      .SelectMany(t => t.GetProperties())
+      .Where(p => p.ClrType == typeof(DateTime) || p.ClrType == typeof(DateTime?));
+
+    foreach (var property in dateTimeProperties) {
+      property.SetValueConverter(
+        new ValueConverter<DateTime, DateTime>(
+          v => v.ToUniversalTime(),
+          v => DateTime.SpecifyKind(v, DateTimeKind.Utc)
+        )
+      );
+    }
 
     var addressConverter = new ValueConverter<Address, string>(
       v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null!),
@@ -32,5 +42,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbCo
     });
 
     modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+    base.OnModelCreating(modelBuilder);
   }
 }

@@ -64,7 +64,7 @@ public class OrderController(IOrderRepository orderRepository, IMapper mapper, I
       return NotFound();
     }
 
-    var response = new BaseResponse(200, "Success", mapper.Map<List<OrderItemGetDto>>(order.Items), []);
+    var response = new BaseResponse(200, "Success", mapper.Map<List<OrderItemGetDto>>(order.OrderItems), []);
     return Ok(response);
   }
 
@@ -98,7 +98,7 @@ public class OrderController(IOrderRepository orderRepository, IMapper mapper, I
       return NotFound();
     }
 
-    var orderItemToUpdate = order.Items.FirstOrDefault(x => x.Id == itemId);
+    var orderItemToUpdate = order.OrderItems.FirstOrDefault(x => x.Id == itemId);
     if (orderItemToUpdate == null) {
       return NotFound();
     }
@@ -118,7 +118,7 @@ public class OrderController(IOrderRepository orderRepository, IMapper mapper, I
       return NotFound();
     }
 
-    var orderItem = order.Items.FirstOrDefault(x => x.Id == itemId);
+    var orderItem = order.OrderItems.FirstOrDefault(x => x.Id == itemId);
     if (orderItem == null) {
       return NotFound();
     }

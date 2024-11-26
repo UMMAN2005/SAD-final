@@ -8,12 +8,24 @@ public enum Gender {
   PreferNotToSay
 }
 
+public enum AuthProvider {
+  Local,
+  Google,
+  Facebook,
+  Twitter
+}
+
 
 public class AppUser : IdentityUser {
   public Gender Gender { get; set; }
-  public DateTime Birthday { get; set; }
-  public string AvatarUrl { get; set; } = default!;
+  public DateTime Birthday { get; set; } = DateTime.UtcNow;
+  public string? AvatarUrl { get; set; }
   public ICollection<Order> Orders { get; set; } = [];
   public ICollection<Review> Reviews { get; set; } = [];
   public ICollection<Card> Cards { get; set; } = [];
+  public AuthProvider Provider { get; set; }
+  public string OtpCode { get; set; } = default!;
+  public string TotpSecret { get; set; } = default!;
+  public DateTime? OtpExpirationTime { get; set; }
+  public DateTime? LastOtpRequestTime { get; set; }
 }
