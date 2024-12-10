@@ -10,7 +10,8 @@ jobs:
   build:
     executor: dotnet-executor
     environment:
-      IMAGE_NAME: ayazumman.xyz/circleci/sad-final
+      HARBOR_IMAGE_NAME: ayazumman.xyz/circleci/sad-final
+      DOCKER_IMAGE_NAME: umman2005/sad-final
     steps:
       - checkout
 
@@ -51,12 +52,19 @@ jobs:
             sudo mv pack /usr/local/bin/pack
             pack build sad-final --path . --builder gcr.io/buildpacks/builder:google-22 --env "GOOGLE_BUILDABLE=API"
 
+      # - run:
+      #     name: Push Image to Harbor
+      #     command: |
+      #       echo $HARBOR_PASSWORD | docker login ayazumman.xyz -u $HARBOR_USERNAME --password-stdin
+      #       docker tag sad-final $HARBOR_IMAGE_NAME:$CIRCLE_SHA1
+      #       docker push $HARBOR_IMAGE_NAME:$CIRCLE_SHA1
+
       - run:
-          name: Push Image to Harbor
+          name: Push Image to Docker
           command: |
-            echo $HARBOR_PASSWORD | docker login ayazumman.xyz -u $HARBOR_USERNAME --password-stdin
-            docker tag sad-final $IMAGE_NAME:$CIRCLE_SHA1
-            docker push $IMAGE_NAME:$CIRCLE_SHA1
+            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+            docker tag sad-final $DOCKER_IMAGE_NAME:$CIRCLE_SHA1
+            docker push $DOCKER_IMAGE_NAME:$CIRCLE_SHA1
 
       - run:
           name: Install gcloud CLI
