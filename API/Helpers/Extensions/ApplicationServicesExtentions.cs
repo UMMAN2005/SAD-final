@@ -34,6 +34,8 @@ public static class ApplicationServicesExtensions {
       opt.User.RequireUniqueEmail = true;
     }).AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>();
 
+    services.Configure<StripeSettings>(config.GetSection("Stripe"));
+
     services.AddSingleton<IConnectionMultiplexer>(c => {
       var options = ConfigurationOptions.Parse(config.GetConnectionString("RedisConnection") ?? string.Empty);
       return ConnectionMultiplexer.Connect(options);

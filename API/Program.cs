@@ -7,6 +7,8 @@ using Core.Entities;
 using Infrastructure.Helpers;
 using Microsoft.AspNetCore.Identity;
 using API.Helpers.Filters;
+using Microsoft.Extensions.Options;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +59,10 @@ builder.Services.AddSwaggerGen(c =>
 var app = builder.Build();
 
 await ApplyMigrationsAndSeedData(app.Services);
+
+// Configure Stripe
+var stripeSettings = app.Services.GetRequiredService<IOptions<StripeSettings>>().Value;
+StripeConfiguration.ApiKey = stripeSettings.SecretKey;
 
 // Configure the HTTP request pipeline.
 app.UseSwagger();

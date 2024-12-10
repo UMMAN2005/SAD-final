@@ -4,6 +4,7 @@ using Core.Entities;
 using Core.Interfaces.Repositories;
 using Infrastructure.Helpers;
 using Microsoft.AspNetCore.Identity;
+using Stripe;
 using System.Security.Claims;
 
 namespace API.Controllers;
@@ -49,5 +50,27 @@ public class PaymentController(IPaymentRepository paymentRepository, IMapper map
     await paymentRepository.DeleteAsync(payment);
     var response = new BaseResponse(204, "Deleted", null, []);
     return Ok(response);
+  }
+
+  [HttpPost("create-intent")]
+  public async Task<IActionResult> CreatePaymentIntent(PaymentIntentDto request) {
+    try {
+      var options = new PaymentIntentCreateOptions {
+        Amount = request.Amount,
+        Currency = request.Currency,
+        PaymentMethodTypes = ["card"]
+      };
+
+      var service = new PaymentIntentService();
+      var intent = await service.CreateAsync(options);
+
+      return StatusCode(200, new BaseResponse(200, "Success", intent.ClientSecret, []));
+    }
+    catch (StripeException ex) {
+      return StatusCode(400, new BaseResponse(400, ex.Message, null, []));
+    }
+    catch (Exception ex) {
+      return StatusCode(500, new BaseResponse(500, ex.Message, null, []));
+    }
   }
 }

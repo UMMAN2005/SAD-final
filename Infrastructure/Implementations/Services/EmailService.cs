@@ -7,13 +7,13 @@ using MailKit.Security;
 
 namespace Infrastructure.Implementations.Services;
 
-public class EmailService(IConfiguration configuration)
+public class EmailService(IConfiguration config)
   : IEmailService {
   // ReSharper disable once UnusedMember.Local
   public static string Me => "ummanmemmedov2005@gmail.com";
 
   public async Task SendAsync(string to, string subject, string body) {
-    var emailSettings = configuration.GetSection("EmailSettings");
+    var emailSettings = config.GetSection("EmailSettings");
 
     var email = new MimeMessage();
 

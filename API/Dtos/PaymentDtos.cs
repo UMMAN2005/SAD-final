@@ -19,6 +19,10 @@ public record PaymentPostDto(
   int OrderId
   );
 
+public record PaymentIntentDto(
+  long Amount,
+  string Currency
+  );
 
 public class PaymentPostDtoValid : AbstractValidator<PaymentPostDto> {
   public PaymentPostDtoValid() {
@@ -26,5 +30,12 @@ public class PaymentPostDtoValid : AbstractValidator<PaymentPostDto> {
     RuleFor(x => x.Method).IsInEnum();
     RuleFor(x => x.Status).IsInEnum();
     RuleFor(x => x.OrderId).GreaterThan(0);
+  }
+}
+
+public class PaymentIntentDtoValid : AbstractValidator<PaymentIntentDto> {
+  public PaymentIntentDtoValid() {
+    RuleFor(x => x.Amount).GreaterThan(0);
+    RuleFor(x => x.Currency).NotEmpty();
   }
 }
