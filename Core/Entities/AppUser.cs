@@ -5,7 +5,8 @@ public enum Gender {
   Male,
   NotMale,
   OtherThanMale,
-  PreferNotToSay
+  PreferNotToSay,
+  NotSpecified
 }
 
 public enum AuthProvider {

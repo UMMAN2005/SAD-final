@@ -57,6 +57,7 @@ public static class ApplicationServicesExtensions {
     services.AddScoped<IPaymentRepository, PaymentRepository>();
 
     services.AddScoped<IEmailService, EmailService>();
+    services.AddScoped<IAIService, AIService>();
 
     services.AddScoped<TokenValidationFilter>();
 

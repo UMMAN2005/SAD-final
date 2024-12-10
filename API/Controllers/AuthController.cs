@@ -102,9 +102,11 @@ public class AuthController(AppUserManager userManager, IConfiguration config, I
     try {
       var user = new AppUser {
         Email = registerDto.Email,
-        UserName = registerDto.UserName,
-        Birthday = DateTime.SpecifyKind(registerDto.Birthday, DateTimeKind.Utc),
-        Gender = registerDto.Gender,
+        UserName = registerDto.UserName ?? Guid.NewGuid().ToString(),
+        Birthday = registerDto.Birthday.HasValue
+          ? DateTime.SpecifyKind(registerDto.Birthday.Value, DateTimeKind.Utc)
+          : DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc),
+        Gender = registerDto.Gender ?? Gender.NotSpecified,
         Provider = AuthProvider.Local
       };
 

@@ -8,7 +8,7 @@ public record LoginDto(
 );
 
 public record RegisterDto(
-   string Email, Gender Gender, DateTime Birthday, string UserName, string Password, string ConfirmPassword, IFormFile? Avatar
+   string Email, Gender? Gender, DateTime? Birthday, string? UserName, string Password, string ConfirmPassword, IFormFile? Avatar
 );
 
 public record ResendOtpDto(
@@ -27,7 +27,6 @@ public class LoginDtoValid : AbstractValidator<LoginDto> {
 public class RegisterDtoValid : AbstractValidator<RegisterDto> {
   public RegisterDtoValid() {
     RuleFor(x => x.Email).NotEmpty().EmailAddress().MaximumLength(50);
-    RuleFor(x => x.UserName).NotEmpty().MaximumLength(50);
     RuleFor(x => x.Password).NotEmpty();
     RuleFor(x => x.ConfirmPassword).Equal(x => x.Password);
   }

@@ -5,10 +5,11 @@ using Core.Interfaces.Repositories;
 using Infrastructure.Helpers;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Core.Interfaces.Services;
 
 namespace API.Controllers;
 
-public class ReviewController(IReviewRepository reviewRepository, IMapper mapper, IHttpContextAccessor accessor, UserManager<AppUser> userManager, IProductRepository productRepository) : BaseApiController {
+public class ReviewController(IReviewRepository reviewRepository, IMapper mapper, IHttpContextAccessor accessor, UserManager<AppUser> userManager, IProductRepository productRepository, IAIService aiService) : BaseApiController {
   [HttpGet]
   public async Task<IActionResult> GetReviews() {
     var reviews = await reviewRepository.GetAllAsync(x => true);
@@ -57,5 +58,44 @@ public class ReviewController(IReviewRepository reviewRepository, IMapper mapper
     await reviewRepository.DeleteAsync(review);
     var response = new BaseResponse(204, "Deleted", null, []);
     return Ok(response);
+  }
+
+  [HttpGet("product/{id:int}")]
+  public async Task<IActionResult> GetReviewsByProduct(int id) {
+    var reviews = await reviewRepository.GetAllAsync(x => x.ProductId == id);
+    var response = new BaseResponse(200, "Success", mapper.Map<List<ReviewGetDto>>(reviews), []);
+    return Ok(response);
+  }
+
+  [HttpGet("product/{id:int}/ai")]
+  public async Task<IActionResult> Summarize(int id) {
+    var reviews = await reviewRepository.GetAllAsync(x => x.ProductId == id);
+
+    var combinedReviews = string.Join("\n", reviews.Select(r => r.Text));
+
+    var userInput = $"Summarize these reviews: {combinedReviews}";
+
+    var systemPrompt = "You are an expert in summarizing product reviews. After receiving all reviews, provide a concise summary in 2-3 sentences. Respond only with the summary, and do not include any additional text. If no reviews provided, just send EMPTY response.";
+
+    var payload = new {
+      contents = new[]
+      {
+        new
+        {
+          parts = new[]
+          {
+            new { text = systemPrompt },
+            new { text = userInput }
+          }
+        }
+      }
+    };
+
+    var response = await aiService.SendToAIAsync(payload);
+
+    if (response == null)
+      return BadRequest(new BaseResponse(400, "Bad request", null, []));
+
+    return Ok(new BaseResponse(200, "Success", response, []));
   }
 }
