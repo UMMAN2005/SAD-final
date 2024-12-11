@@ -14,7 +14,7 @@ namespace API.Controllers;
 
 public class AuthController(AppUserManager userManager, IConfiguration config, IEmailService emailService, IWebHostEnvironment env) : BaseApiController {
   [HttpPost("login")]
-  public async Task<IActionResult> Login([FromForm] LoginDto loginDto) {
+  public async Task<IActionResult> Login(LoginDto loginDto) {
     var user = await userManager.FindByEmailAsync(loginDto.Email);
 
     var response = new BaseResponse(401, "Invalid email or password", null, []);
@@ -72,7 +72,7 @@ public class AuthController(AppUserManager userManager, IConfiguration config, I
   }
 
   [HttpPost("resend-otp")]
-  public async Task<IActionResult> ResendOtp([FromForm] ResendOtpDto resendOtpDto) {
+  public async Task<IActionResult> ResendOtp(ResendOtpDto resendOtpDto) {
     var user = await userManager.FindByEmailAsync(resendOtpDto.Email);
 
     if (user == null)
@@ -96,7 +96,7 @@ public class AuthController(AppUserManager userManager, IConfiguration config, I
   }
 
   [HttpPost("register")]
-  public async Task<IActionResult> Register([FromForm] RegisterDto registerDto) {
+  public async Task<IActionResult> Register(RegisterDto registerDto) {
     string? uploadedFilePath = null;
     using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
     try {
