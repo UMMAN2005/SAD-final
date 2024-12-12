@@ -12,11 +12,9 @@ using Infrastructure.Implementations.Services;
 
 namespace API.Controllers;
 
-public class AuthController(AppUserManager userManager, IConfiguration config, IEmailService emailService, IWebHostEnvironment env) : BaseApiController
-{
+public class AuthController(AppUserManager userManager, IConfiguration config, IEmailService emailService, IWebHostEnvironment env) : BaseApiController {
   [HttpPost("login")]
-  public async Task<IActionResult> Login(LoginDto loginDto)
-  {
+  public async Task<IActionResult> Login(LoginDto loginDto) {
     var user = await userManager.FindByEmailAsync(loginDto.Email);
 
     var response = new BaseResponse(400, "Invalid email or password", null, []);
@@ -24,15 +22,12 @@ public class AuthController(AppUserManager userManager, IConfiguration config, I
     if (user == null || !await userManager.CheckPasswordAsync(user, loginDto.Password!))
       return StatusCode(response.StatusCode, response);
 
-    if (user.Provider is AuthProvider.Local)
-    {
+    if (user.Provider is AuthProvider.Local) {
       if (!await userManager.CheckPasswordAsync(user, loginDto.Password!))
         return StatusCode(response.StatusCode, response);
 
-      if (!await userManager.IsEmailConfirmedAsync(user))
-      {
-        if (loginDto.Otp == null)
-        {
+      if (!await userManager.IsEmailConfirmedAsync(user)) {
+        if (loginDto.Otp == null) {
           return StatusCode(401,
             new BaseResponse(401, $"Email not verified! {user.Email}. Please provide the OTP sent to your email.", null,
               []));
@@ -45,8 +40,7 @@ public class AuthController(AppUserManager userManager, IConfiguration config, I
         await userManager.UpdateAsync(user);
       }
     }
-    else
-    {
+    else {
       user.EmailConfirmed = true;
       await userManager.UpdateAsync(user);
     }
@@ -78,8 +72,7 @@ public class AuthController(AppUserManager userManager, IConfiguration config, I
   }
 
   [HttpPost("resend-otp")]
-  public async Task<IActionResult> ResendOtp(ResendOtpDto resendOtpDto)
-  {
+  public async Task<IActionResult> ResendOtp(ResendOtpDto resendOtpDto) {
     var user = await userManager.FindByEmailAsync(resendOtpDto.Email);
 
     if (user == null)
@@ -88,8 +81,7 @@ public class AuthController(AppUserManager userManager, IConfiguration config, I
     if (user.Provider is not AuthProvider.Local)
       return StatusCode(400, new BaseResponse(400, "User is not registered with email", null, []));
 
-    if (user.LastOtpRequestTime.HasValue && user.LastOtpRequestTime.Value.AddMinutes(2) > DateTime.UtcNow)
-    {
+    if (user.LastOtpRequestTime.HasValue && user.LastOtpRequestTime.Value.AddMinutes(2) > DateTime.UtcNow) {
       var nextRequestTime = user.LastOtpRequestTime.Value.AddMinutes(2);
       var remainingTime = nextRequestTime.Subtract(DateTime.UtcNow).TotalSeconds;
       return StatusCode(429, new BaseResponse(429, $"You must wait {remainingTime:F1} seconds before requesting a new OTP.", null, []));
@@ -104,14 +96,11 @@ public class AuthController(AppUserManager userManager, IConfiguration config, I
   }
 
   [HttpPost("register")]
-  public async Task<IActionResult> Register(RegisterDto registerDto)
-  {
+  public async Task<IActionResult> Register(RegisterDto registerDto) {
     string? uploadedFilePath = null;
     using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
-    try
-    {
-      var user = new AppUser
-      {
+    try {
+      var user = new AppUser {
         Email = registerDto.Email,
         UserName = registerDto.UserName ?? Guid.NewGuid().ToString(),
         Birthday = registerDto.Birthday.HasValue
@@ -128,8 +117,7 @@ public class AuthController(AppUserManager userManager, IConfiguration config, I
 
       var result = await userManager.CreateAsync(user, registerDto.Password);
 
-      if (!result.Succeeded)
-      {
+      if (!result.Succeeded) {
         var errors = string.Join(", ", result.Errors.Select(x => x.Description));
         return StatusCode(400, new BaseResponse(400, errors, null, []));
       }
@@ -143,11 +131,9 @@ public class AuthController(AppUserManager userManager, IConfiguration config, I
 
       return Ok(new BaseResponse(200, "Registered successfully. Please verify your email now.", new { user.Id }, []));
     }
-    catch
-    {
+    catch {
 
-      if (!string.IsNullOrEmpty(uploadedFilePath))
-      {
+      if (!string.IsNullOrEmpty(uploadedFilePath)) {
         FileManager.Delete(env.WebRootPath, "images/users", uploadedFilePath);
       }
 
