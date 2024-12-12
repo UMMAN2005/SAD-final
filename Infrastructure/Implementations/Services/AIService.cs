@@ -16,7 +16,11 @@ public class AIService(IConfiguration config) : IAIService {
 
     var fullUrl = $"{apiUrl}?key={apiKey}";
 
-    using var httpClient = new HttpClient();
+    var handler = new HttpClientHandler {
+      ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+    };
+
+    using var httpClient = new HttpClient(handler);
 
     var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(prompt), Encoding.UTF8, "application/json");
 
