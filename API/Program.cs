@@ -83,7 +83,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// app.UseMiddleware<ExceptionHandlerMiddleware>();
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 await app.RunAsync();
 return;
@@ -97,5 +97,5 @@ static async Task ApplyMigrationsAndSeedData(IServiceProvider serviceProvider) {
   await dbContext.Database.MigrateAsync();
 
   // Seed data
-  DbInitializer.SeedData(scope.ServiceProvider);
+  await DbInitializer.SeedData(scope.ServiceProvider);
 }
