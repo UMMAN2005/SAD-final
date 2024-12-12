@@ -7,7 +7,7 @@ using Infrastructure.Helpers;
 
 namespace API.Controllers;
 
-[ServiceFilter(typeof(TokenValidationFilter))]
+// [ServiceFilter(typeof(TokenValidationFilter))]
 public class CategoryController(ICategoryRepository categoryRepository, IMapper mapper) : BaseApiController {
   [HttpGet]
   public async Task<IActionResult> GetCategories() {

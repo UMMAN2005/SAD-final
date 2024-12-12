@@ -59,7 +59,7 @@ public static class ApplicationServicesExtensions {
     services.AddScoped<IEmailService, EmailService>();
     services.AddScoped<IAIService, AIService>();
 
-    services.AddScoped<TokenValidationFilter>();
+    // services.AddScoped<TokenValidationFilter>();
 
     services.AddLogging();
 
