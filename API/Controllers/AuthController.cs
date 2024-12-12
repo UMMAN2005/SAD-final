@@ -51,7 +51,7 @@ public class AuthController(AppUserManager userManager, IConfiguration config, I
       new Claim(ClaimTypes.Email, user.Email!)
     ];
 
-    var secret = config["JWT:Secret"]!;
+    var secret = config["JWT:Secret"] ?? "sPiSBzJBJwH0HUkmJ8glnEKANwEPoLQR/IBDVWs0xC+6a1AT+ppIkcKvKhQxlrBW";
 
     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
     var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
