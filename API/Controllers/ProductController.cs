@@ -48,4 +48,11 @@ public class ProductController(IProductRepository productRepository, IMapper map
     var response = new BaseResponse(204, "Deleted", null, []);
     return Ok(response);
   }
+
+  [HttpGet("category/{id:int}")]
+  public async Task<IActionResult> GetProductsByCategory(int id) {
+    var products = await productRepository.GetAllAsync(x => x.CategoryId == id);
+    var response = new BaseResponse(200, "Success", mapper.Map<List<ProductGetDto>>(products), []);
+    return Ok(response);
+  }
 }

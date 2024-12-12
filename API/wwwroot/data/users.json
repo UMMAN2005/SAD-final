@@ -1,0 +1,42 @@
+[
+  {
+    "Id": "9b94baa0-441b-4d9f-b34d-df92f44ecf6d",
+    "AvatarUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNDhVsACKeyZFhTD7ytsIKPk-d7j0gwrYTwQ&s",
+    "Email": "user1@example.com",
+    "UserName": "UserOne",
+    "Birthday": "1990-05-15T00:00:00",
+    "EmailConfirmed": true
+  },
+  {
+    "Id": "5f32cd10-ff22-4e1c-8b29-b3e8f6b9a2a5",
+    "AvatarUrl": "https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/gorgeous-young-model-woman-looking-at-camera-posing-in-the-city-azat-jandurdyyev.jpg",
+    "Email": "user2@example.com",
+    "UserName": "UserTwo",
+    "Birthday": "1988-09-21T00:00:00",
+    "EmailConfirmed": true
+  },
+  {
+    "Id": "7a81d41f-cc2d-42b9-abc1-3c3efedf5ef9",
+    "AvatarUrl": "https://i.shgcdn.com/72ac54ae-0535-40f8-a7a4-193157122500/-/format/auto/-/preview/3000x3000/-/quality/lighter/",
+    "Email": "user3@example.com",
+    "UserName": "UserThree",
+    "Birthday": "1995-12-03T00:00:00",
+    "EmailConfirmed": true
+  },
+  {
+    "Id": "d4f17a35-3f7a-4be9-ae5a-88902e7cd8a9",
+    "AvatarUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2Iz-LHRnUT8isWoKY6VfPP7YiVzUISqmw7Q&s",
+    "Email": "user4@example.com",
+    "UserName": "UserFour",
+    "Birthday": "1992-07-08T00:00:00",
+    "EmailConfirmed": true
+  },
+  {
+    "Id": "2b6d23f8-2cd4-4e8b-92f4-5e8bdb23f450",
+    "AvatarUrl": "https://t3.ftcdn.net/jpg/07/19/69/00/360_F_719690071_EJc3QJ8oVEYqoT59XBUblMAGZJkwRth7.jpg",
+    "Email": "user5@example.com",
+    "UserName": "UserFive",
+    "Birthday": "2000-03-22T00:00:00",
+    "EmailConfirmed": true
+  }
+]

@@ -18,13 +18,13 @@ public enum AuthProvider {
 
 
 public class AppUser : IdentityUser {
-  public Gender Gender { get; set; }
+  public Gender Gender { get; set; } = Gender.NotSpecified;
   public DateTime Birthday { get; set; } = DateTime.UtcNow;
   public string? AvatarUrl { get; set; }
   public ICollection<Order> Orders { get; set; } = [];
   public ICollection<Review> Reviews { get; set; } = [];
   public ICollection<Card> Cards { get; set; } = [];
-  public AuthProvider Provider { get; set; }
+  public AuthProvider Provider { get; set; } = AuthProvider.Local;
   public string OtpCode { get; set; } = default!;
   public string TotpSecret { get; set; } = default!;
   public DateTime? OtpExpirationTime { get; set; }

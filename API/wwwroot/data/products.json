@@ -1,0 +1,167 @@
+[
+  {
+    "Name": "Men's Casual Shirt",
+    "SecondaryName": "Cotton Slim Fit Shirt",
+    "Description": "A comfortable cotton slim-fit shirt, perfect for casual wear.",
+    "CostPrice": 20.00,
+    "SalePrice": 25.99,
+    "Rating": 4.5,
+    "StockQuantity": 50,
+    "ImageUrls": [ "https://uniworthdress.com/uploads/product/007e5f934b9166fd5a61600bf0e0ee61.jpg" ],
+    "CategoryId": "1"
+  },
+  {
+    "Name": "Men's Jeans",
+    "SecondaryName": "Regular Fit Denim",
+    "Description": "Classic denim jeans with a regular fit and durable fabric.",
+    "CostPrice": 30.00,
+    "SalePrice": 39.99,
+    "Rating": 4.6,
+    "StockQuantity": 40,
+    "ImageUrls": [ "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuib-QAa9NXLf4XZUOdebUi4-ZIoGI3LgALw&s" ],
+    "CategoryId": "1"
+  },
+  {
+    "Name": "Men's T-Shirt",
+    "SecondaryName": "Crew Neck Cotton Tee",
+    "Description": "Soft crew neck T-shirt for everyday comfort.",
+    "CostPrice": 10.00,
+    "SalePrice": 14.99,
+    "Rating": 4.3,
+    "StockQuantity": 70,
+    "ImageUrls": [ "https://imagescdn.simons.ca/images/8719-206604-10-A1_3/100-organic-cotton-crew-neck-t-shirt-b-standard-fit-b.jpg?__=67" ],
+    "CategoryId": "1"
+  },
+  {
+    "Name": "Men's Hoodie",
+    "SecondaryName": "Fleece Hoodie",
+    "Description": "Warm fleece hoodie for cooler days.",
+    "CostPrice": 25.00,
+    "SalePrice": 34.99,
+    "Rating": 4.8,
+    "StockQuantity": 30,
+    "ImageUrls": [ "https://calvinklein-eu.scene7.com/is/image/CalvinKleinEU/J30J326459_LJX_main?$b2c_updp_m_mainImage_1920$" ],
+    "CategoryId": "1"
+  },
+  {
+    "Name": "Men's Formal Suit",
+    "SecondaryName": "Two-Piece Suit",
+    "Description": "A stylish two-piece formal suit for special occasions.",
+    "CostPrice": 70.00,
+    "SalePrice": 89.99,
+    "Rating": 4.9,
+    "StockQuantity": 20,
+    "ImageUrls": [ "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXC1Ayi3X_ku90EXEpD8AzgFpJEhg8wPwziA&s" ],
+    "CategoryId": "1"
+  },
+  {
+    "Name": "Women's Maxi Dress",
+    "SecondaryName": "Floral Print Maxi Dress",
+    "Description": "A flowing maxi dress with a beautiful floral print.",
+    "CostPrice": 25.00,
+    "SalePrice": 34.99,
+    "Rating": 4.7,
+    "StockQuantity": 40,
+    "ImageUrls": [ "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK0_gz68sJZgMHPLUYUgs8le_qKBmAs7py3w&s" ],
+    "CategoryId": "2"
+  },
+  {
+    "Name": "Women's Blouse",
+    "SecondaryName": "Silk Blouse",
+    "Description": "Elegant silk blouse, perfect for work or special occasions.",
+    "CostPrice": 20.00,
+    "SalePrice": 29.99,
+    "Rating": 4.5,
+    "StockQuantity": 60,
+    "ImageUrls": [ "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDTrctoIWxOMzf8jU-goToawrk5itZGK6I4g&s" ],
+    "CategoryId": "2"
+  },
+  {
+    "Name": "Women's Skirt",
+    "SecondaryName": "A-Line Skirt",
+    "Description": "A-line skirt that combines style and comfort.",
+    "CostPrice": 15.00,
+    "SalePrice": 19.99,
+    "Rating": 4.3,
+    "StockQuantity": 50,
+    "ImageUrls": [ "https://assets.digitalcontent.marksandspencer.app/images/w_1024,q_auto,f_auto/SD_01_T59_1800S_Y0_X_EC_0/Velvet-Mini-A-Line-Skirt" ],
+    "CategoryId": "2"
+  },
+  {
+    "Name": "Women's Winter Coat",
+    "SecondaryName": "Long Wool Coat",
+    "Description": "Stylish long wool coat for the winter season.",
+    "CostPrice": 60.00,
+    "SalePrice": 79.99,
+    "Rating": 4.8,
+    "StockQuantity": 25,
+    "ImageUrls": [ "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLbpV_c8UKYUO-KCKWAkYe1phROnILVo7zEw&s" ],
+    "CategoryId": "2"
+  },
+  {
+    "Name": "Women's Leggings",
+    "SecondaryName": "High Waist Leggings",
+    "Description": "Comfortable high-waisted leggings for everyday wear.",
+    "CostPrice": 10.00,
+    "SalePrice": 14.99,
+    "Rating": 4.4,
+    "StockQuantity": 80,
+    "ImageUrls": [ "https://au.ryderwear.com/cdn/shop/products/nkd-high-waisted-scrunch-leggings-black-clothing-ryderwear-519227_1080x.jpg?v=1684740895" ],
+    "CategoryId": "2"
+  },
+  {
+    "Name": "Kids' T-Shirt",
+    "SecondaryName": "Graphic Print T-Shirt",
+    "Description": "Fun and colorful T-shirt with graphic prints.",
+    "CostPrice": 8.00,
+    "SalePrice": 12.99,
+    "Rating": 4.5,
+    "StockQuantity": 60,
+    "ImageUrls": [ "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBNqS61gm9x-eF4uAdYTsjdv04YfYcmlQTVQ&s" ],
+    "CategoryId": "3"
+  },
+  {
+    "Name": "Kids' Jeans",
+    "SecondaryName": "Denim Jeans",
+    "Description": "Durable denim jeans for active kids.",
+    "CostPrice": 12.00,
+    "SalePrice": 18.99,
+    "Rating": 4.6,
+    "StockQuantity": 50,
+    "ImageUrls": [ "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0MxCiCaACs8ra5IyOtYqVvTRURY5-Bm_VYw&s" ],
+    "CategoryId": "3"
+  },
+  {
+    "Name": "Kids' Pajamas",
+    "SecondaryName": "Cotton Pajama Set",
+    "Description": "Soft cotton pajamas for a comfortable sleep.",
+    "CostPrice": 10.00,
+    "SalePrice": 14.99,
+    "Rating": 4.7,
+    "StockQuantity": 40,
+    "ImageUrls": [ "https://i.etsystatic.com/24393829/r/il/fb78e4/2445196414/il_570xN.2445196414_9x0l.jpg" ],
+    "CategoryId": "3"
+  },
+  {
+    "Name": "Kids' Jacket",
+    "SecondaryName": "Waterproof Jacket",
+    "Description": "Lightweight and waterproof jacket for kids.",
+    "CostPrice": 20.00,
+    "SalePrice": 29.99,
+    "Rating": 4.8,
+    "StockQuantity": 30,
+    "ImageUrls": [ "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyhjo5VH9oswqqBTUVGvQDlb2EEI4pje9Dwg&s" ],
+    "CategoryId": "3"
+  },
+  {
+    "Name": "Kids' Sneakers",
+    "SecondaryName": "Comfortable Sneakers",
+    "Description": "Lightweight and stylish sneakers for kids.",
+    "CostPrice": 15.00,
+    "SalePrice": 24.99,
+    "Rating": 4.6,
+    "StockQuantity": 50,
+    "ImageUrls": [ "https://i.redd.it/jqpxqcmbjpad1.jpeg" ],
+    "CategoryId": "3"
+  }
+]

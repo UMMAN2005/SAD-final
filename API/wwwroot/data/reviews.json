@@ -1,0 +1,242 @@
+[
+  {
+    "AppUserId": "9b94baa0-441b-4d9f-b34d-df92f44ecf6d",
+    "ProductId": 1,
+    "Text": "Great quality shirt, very comfortable to wear!",
+    "Rating": 4.5
+  },
+  {
+    "AppUserId": "5f32cd10-ff22-4e1c-8b29-b3e8f6b9a2a5",
+    "ProductId": 2,
+    "Text": "The jeans fit perfectly and feel very durable.",
+    "Rating": 4.6
+  },
+  {
+    "AppUserId": "7a81d41f-cc2d-42b9-abc1-3c3efedf5ef9",
+    "ProductId": 3,
+    "Text": "T-shirt is soft and breathable, perfect for summer!",
+    "Rating": 4.3
+  },
+  {
+    "AppUserId": "d4f17a35-3f7a-4be9-ae5a-88902e7cd8a9",
+    "ProductId": 4,
+    "Text": "The hoodie keeps me warm and cozy during winter.",
+    "Rating": 4.8
+  },
+  {
+    "AppUserId": "2b6d23f8-2cd4-4e8b-92f4-5e8bdb23f450",
+    "ProductId": 5,
+    "Text": "This suit is perfect for formal events, highly recommend.",
+    "Rating": 4.9
+  },
+  {
+    "AppUserId": "9b94baa0-441b-4d9f-b34d-df92f44ecf6d",
+    "ProductId": 6,
+    "Text": "The maxi dress is stunning, great fabric!",
+    "Rating": 4.7
+  },
+  {
+    "AppUserId": "5f32cd10-ff22-4e1c-8b29-b3e8f6b9a2a5",
+    "ProductId": 7,
+    "Text": "Blouse is elegant and fits well.",
+    "Rating": 4.5
+  },
+  {
+    "AppUserId": "7a81d41f-cc2d-42b9-abc1-3c3efedf5ef9",
+    "ProductId": 8,
+    "Text": "A-line skirt is both stylish and comfortable.",
+    "Rating": 4.3
+  },
+  {
+    "AppUserId": "d4f17a35-3f7a-4be9-ae5a-88902e7cd8a9",
+    "ProductId": 9,
+    "Text": "Long coat is great for winter, excellent material.",
+    "Rating": 4.8
+  },
+  {
+    "AppUserId": "2b6d23f8-2cd4-4e8b-92f4-5e8bdb23f450",
+    "ProductId": 10,
+    "Text": "Leggings are soft and fit perfectly.",
+    "Rating": 4.4
+  },
+  {
+    "AppUserId": "9b94baa0-441b-4d9f-b34d-df92f44ecf6d",
+    "ProductId": 11,
+    "Text": "Kids' T-shirt is fun and colorful, my child loves it.",
+    "Rating": 4.5
+  },
+  {
+    "AppUserId": "5f32cd10-ff22-4e1c-8b29-b3e8f6b9a2a5",
+    "ProductId": 12,
+    "Text": "Durable jeans, great for active kids.",
+    "Rating": 4.6
+  },
+  {
+    "AppUserId": "7a81d41f-cc2d-42b9-abc1-3c3efedf5ef9",
+    "ProductId": 13,
+    "Text": "Comfortable and cute pajamas for kids.",
+    "Rating": 4.7
+  },
+  {
+    "AppUserId": "d4f17a35-3f7a-4be9-ae5a-88902e7cd8a9",
+    "ProductId": 14,
+    "Text": "The jacket is perfect for rainy days.",
+    "Rating": 4.8
+  },
+  {
+    "AppUserId": "2b6d23f8-2cd4-4e8b-92f4-5e8bdb23f450",
+    "ProductId": 15,
+    "Text": "Sneakers are lightweight and stylish.",
+    "Rating": 4.6
+  },
+  {
+    "AppUserId": "9b94baa0-441b-4d9f-b34d-df92f44ecf6d",
+    "ProductId": 1,
+    "Text": "Bought this shirt again, just love it.",
+    "Rating": 4.7
+  },
+  {
+    "AppUserId": "5f32cd10-ff22-4e1c-8b29-b3e8f6b9a2a5",
+    "ProductId": 6,
+    "Text": "This dress is beautiful, got many compliments.",
+    "Rating": 4.9
+  },
+  {
+    "AppUserId": "7a81d41f-cc2d-42b9-abc1-3c3efedf5ef9",
+    "ProductId": 9,
+    "Text": "Love the design and warmth of this coat.",
+    "Rating": 4.8
+  },
+  {
+    "AppUserId": "d4f17a35-3f7a-4be9-ae5a-88902e7cd8a9",
+    "ProductId": 12,
+    "Text": "Perfect jeans for my little one, fits perfectly.",
+    "Rating": 4.7
+  },
+  {
+    "AppUserId": "2b6d23f8-2cd4-4e8b-92f4-5e8bdb23f450",
+    "ProductId": 14,
+    "Text": "My child loves this jacket, keeps them dry and warm.",
+    "Rating": 4.9
+  },
+  {
+    "AppUserId": "9b94baa0-441b-4d9f-b34d-df92f44ecf6d",
+    "ProductId": 1,
+    "Text": "Great quality shirt, very comfortable to wear!",
+    "Rating": 4.5
+  },
+  {
+    "AppUserId": "5f32cd10-ff22-4e1c-8b29-b3e8f6b9a2a5",
+    "ProductId": 2,
+    "Text": "The jeans fit perfectly and feel very durable.",
+    "Rating": 4.6
+  },
+  {
+    "AppUserId": "7a81d41f-cc2d-42b9-abc1-3c3efedf5ef9",
+    "ProductId": 3,
+    "Text": "T-shirt is soft and breathable, perfect for summer!",
+    "Rating": 4.3
+  },
+  {
+    "AppUserId": "d4f17a35-3f7a-4be9-ae5a-88902e7cd8a9",
+    "ProductId": 4,
+    "Text": "The hoodie keeps me warm and cozy during winter.",
+    "Rating": 4.8
+  },
+  {
+    "AppUserId": "2b6d23f8-2cd4-4e8b-92f4-5e8bdb23f450",
+    "ProductId": 5,
+    "Text": "This suit is perfect for formal events, highly recommend.",
+    "Rating": 4.9
+  },
+  {
+    "AppUserId": "9b94baa0-441b-4d9f-b34d-df92f44ecf6d",
+    "ProductId": 6,
+    "Text": "The maxi dress is stunning, great fabric!",
+    "Rating": 4.7
+  },
+  {
+    "AppUserId": "5f32cd10-ff22-4e1c-8b29-b3e8f6b9a2a5",
+    "ProductId": 7,
+    "Text": "Blouse is elegant and fits well.",
+    "Rating": 4.5
+  },
+  {
+    "AppUserId": "7a81d41f-cc2d-42b9-abc1-3c3efedf5ef9",
+    "ProductId": 8,
+    "Text": "A-line skirt is both stylish and comfortable.",
+    "Rating": 4.3
+  },
+  {
+    "AppUserId": "d4f17a35-3f7a-4be9-ae5a-88902e7cd8a9",
+    "ProductId": 9,
+    "Text": "Long coat is great for winter, excellent material.",
+    "Rating": 4.8
+  },
+  {
+    "AppUserId": "2b6d23f8-2cd4-4e8b-92f4-5e8bdb23f450",
+    "ProductId": 10,
+    "Text": "Leggings are soft and fit perfectly.",
+    "Rating": 4.4
+  },
+  {
+    "AppUserId": "9b94baa0-441b-4d9f-b34d-df92f44ecf6d",
+    "ProductId": 11,
+    "Text": "Kids' T-shirt is fun and colorful, my child loves it.",
+    "Rating": 4.5
+  },
+  {
+    "AppUserId": "5f32cd10-ff22-4e1c-8b29-b3e8f6b9a2a5",
+    "ProductId": 12,
+    "Text": "Durable jeans, great for active kids.",
+    "Rating": 4.6
+  },
+  {
+    "AppUserId": "7a81d41f-cc2d-42b9-abc1-3c3efedf5ef9",
+    "ProductId": 13,
+    "Text": "Comfortable and cute pajamas for kids.",
+    "Rating": 4.7
+  },
+  {
+    "AppUserId": "d4f17a35-3f7a-4be9-ae5a-88902e7cd8a9",
+    "ProductId": 14,
+    "Text": "The jacket is perfect for rainy days.",
+    "Rating": 4.8
+  },
+  {
+    "AppUserId": "2b6d23f8-2cd4-4e8b-92f4-5e8bdb23f450",
+    "ProductId": 15,
+    "Text": "Sneakers are lightweight and stylish.",
+    "Rating": 4.6
+  },
+  {
+    "AppUserId": "9b94baa0-441b-4d9f-b34d-df92f44ecf6d",
+    "ProductId": 1,
+    "Text": "Bought this shirt again, just love it.",
+    "Rating": 4.7
+  },
+  {
+    "AppUserId": "5f32cd10-ff22-4e1c-8b29-b3e8f6b9a2a5",
+    "ProductId": 6,
+    "Text": "This dress is beautiful, got many compliments.",
+    "Rating": 4.9
+  },
+  {
+    "AppUserId": "7a81d41f-cc2d-42b9-abc1-3c3efedf5ef9",
+    "ProductId": 9,
+    "Text": "Love the design and warmth of this coat.",
+    "Rating": 4.8
+  },
+  {
+    "AppUserId": "d4f17a35-3f7a-4be9-ae5a-88902e7cd8a9",
+    "ProductId": 12,
+    "Text": "Perfect jeans for my little one, fits perfectly.",
+    "Rating": 4.7
+  },
+  {
+    "AppUserId": "2b6d23f8-2cd4-4e8b-92f4-5e8bdb23f450",
+    "ProductId": 14,
+    "Text": "My child loves this jacket, keeps them dry and warm.",
+    "Rating": 4.9
+  }
+]
