@@ -2,21 +2,44 @@
 
 namespace API.Dtos;
 
-public record ReviewGetDto(
-  int Id,
-  string AppUserId,
-  string AppUserName,
-  int ProductId,
-  string Text,
-  decimal Rating,
-  DateTime CreatedAt
-);
+public class ReviewGetDto {
+  public int Id { get; set; }
+  public string AppUserId { get; set; }
+  public string AppUserName { get; set; }
+  public int ProductId { get; set; }
+  public string Text { get; set; }
+  public decimal Rating { get; set; }
+  public DateTime CreatedAt { get; set; }
 
-public record ReviewPostDto(
-  int ProductId,
-  string Text,
-  decimal Rating
-);
+  public ReviewGetDto(int id, string appUserId, string appUserName, int productId, string text, decimal rating, DateTime createdAt) {
+    Id = id;
+    AppUserId = appUserId;
+    AppUserName = appUserName;
+    ProductId = productId;
+    Text = text;
+    Rating = rating;
+    CreatedAt = createdAt;
+  }
+
+  public ReviewGetDto() {
+  }
+}
+
+public class ReviewPostDto {
+  public int ProductId { get; set; }
+  public string Text { get; set; }
+  public decimal Rating { get; set; }
+
+  public ReviewPostDto(int productId, string text, decimal rating) {
+    ProductId = productId;
+    Text = text;
+    Rating = rating;
+  }
+
+  public ReviewPostDto() {
+  }
+}
+
 
 public class ReviewPostDtoValid : AbstractValidator<ReviewPostDto> {
   public ReviewPostDtoValid() {

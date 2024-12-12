@@ -81,11 +81,11 @@ public class AuthController(AppUserManager userManager, IConfiguration config, I
     if (user.Provider is not AuthProvider.Local)
       return StatusCode(400, new BaseResponse(400, "User is not registered with email", null, []));
 
-    if (user.LastOtpRequestTime.HasValue && user.LastOtpRequestTime.Value.AddMinutes(2) > DateTime.UtcNow) {
-      var nextRequestTime = user.LastOtpRequestTime.Value.AddMinutes(2);
-      var remainingTime = nextRequestTime.Subtract(DateTime.UtcNow).TotalSeconds;
-      return StatusCode(429, new BaseResponse(429, $"You must wait {remainingTime:F1} seconds before requesting a new OTP.", null, []));
-    }
+    //if (user.LastOtpRequestTime.HasValue && user.LastOtpRequestTime.Value.AddMinutes(2) > DateTime.UtcNow) {
+    //  var nextRequestTime = user.LastOtpRequestTime.Value.AddMinutes(2);
+    //  var remainingTime = nextRequestTime.Subtract(DateTime.UtcNow).TotalSeconds;
+    //  return StatusCode(429, new BaseResponse(429, $"You must wait {remainingTime:F1} seconds before requesting a new OTP.", null, []));
+    //}
 
     var otp = await userManager.GenerateOtpAsync(user);
     user.LastOtpRequestTime = DateTime.UtcNow;

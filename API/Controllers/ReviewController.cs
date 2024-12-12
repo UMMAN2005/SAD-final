@@ -6,6 +6,7 @@ using Infrastructure.Helpers;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using Core.Interfaces.Services;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace API.Controllers;
 
@@ -71,11 +72,15 @@ public class ReviewController(IReviewRepository reviewRepository, IMapper mapper
   public async Task<IActionResult> Summarize(int id) {
     var reviews = await reviewRepository.GetAllAsync(x => x.ProductId == id);
 
-    var combinedReviews = string.Join("\n", reviews.Select(r => r.Text));
+    var reviewGetDtos = mapper.Map<List<ReviewGetDto>>(reviews);
+
+    var combinedReviews = string.Join("\n", reviewGetDtos.Select(r => r.Text));
 
     var userInput = $"Summarize these reviews: {combinedReviews}";
 
-    var systemPrompt = "You are an expert in summarizing product reviews. After receiving all reviews, provide a concise summary in 2-3 sentences. Respond only with the summary, and do not include any additional text. If no reviews provided, just send EMPTY response.";
+    var systemPrompt = "You are an expert in summarizing product reviews. After receiving all reviews, provide a concise summary in 1-2 sentences. Respond only with the summary, and do not include any additional text. If no reviews provided, just send EMPTY response.";
+
+    var prompt = $"{systemPrompt}\n{userInput}";
 
     var payload = new {
       contents = new[]
@@ -84,8 +89,7 @@ public class ReviewController(IReviewRepository reviewRepository, IMapper mapper
         {
           parts = new[]
           {
-            new { text = systemPrompt },
-            new { text = userInput }
+            new { text = prompt }
           }
         }
       }
