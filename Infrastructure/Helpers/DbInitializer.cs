@@ -13,7 +13,7 @@ public static class DbInitializer {
     var env = serviceProvider.GetRequiredService<IWebHostEnvironment>();
     var context = serviceProvider.GetRequiredService<AppDbContext>();
 
-    // Seed data
+    // Seed default data
     var categories = await ReadData<Category>(env, "categories.json");
     var products = await ReadData<Product>(env, "products.json");
     var users = await ReadData<AppUser>(env, "users.json");
