@@ -83,7 +83,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// app.UseMiddleware<ExceptionHandlerMiddleware>();
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 await app.RunAsync();
 return;
